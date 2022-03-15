@@ -12,7 +12,7 @@ export const scheduledFunction = functions.pubsub.schedule("*/15 * * * *").onRun
 async function fetchHtml(context) {
   const credentials = (await admin.database().ref("credentials").get()).val();
 
-  let response = await axios.get("https://schule-infoportal.de/infoscreen/?type=student&days=5&news=1&absent=&absent2=1", {
+  let response = await axios.get(credentials.url, {
     auth: {
       username: credentials.username,
       password: credentials.password
