@@ -1,4 +1,4 @@
-<img alt="Logo" src="https://firebasestorage.googleapis.com/v0/b/gg-schueler-app.appspot.com/o/github%2Flogo_backend.png?alt=media&token=25d99abd-d577-4ac2-b58c-455f02fe36fa" height="200">
+<img alt="Logo" src=".github/logo_backend.png" height="200">
 
 # Schüler-App Backend
 
