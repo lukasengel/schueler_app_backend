@@ -12,3 +12,7 @@ Läuft auf der Google Cloud Platform (Firebase Functions) unter Node.js
 
 ## Lizenz
 Der Quellcode steht unter der MIT-Lizenz öffentlich zur Verfügung. Weitere Informationen unter license.txt.
+
+## Weitere Repositories
+- Schüler-App: https://github.com/lukasengel/schueler_app
+- Schüler-App-Manager: https://github.com/lukasengel/schueler_app_manager
