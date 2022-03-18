@@ -37,15 +37,6 @@ async function sendSmvNotifications(change, context) {
   const before = change.before.val();
   const after = change.after.val();
 
-  const ref = admin.database().ref("test");
-
-  // ref.update({
-  //   before: before,
-  //   after: after,
-  // });
-
-
-
   for (const [key, value] of Object.entries(after)) {
     if (!(key in before)) {
       await admin.messaging().send({
