@@ -8,6 +8,7 @@ admin.initializeApp();
 import { HtmlParser } from "./html_parser.js";
 
 export const scheduledFunction = functions.pubsub.schedule("*/15 * * * *").onRun(fetchHtml);
+export const schoolLifeNotifications = functions.database.ref("schoolLife").onWrite(sendSmvNotifications);
 
 async function fetchHtml(context) {
   const credentials = (await admin.database().ref("credentials").get()).val();
@@ -30,6 +31,36 @@ async function fetchHtml(context) {
     "ticker": parser.parseTicker(),
     "substitutionTables": parser.parseSubstitutions()
   });
+}
 
-  return 0;
+async function sendSmvNotifications(change, context) {
+  const before = change.before.val();
+  const after = change.after.val();
+
+  const ref = admin.database().ref("test");
+
+  // ref.update({
+  //   before: before,
+  //   after: after,
+  // });
+
+
+
+  for (const [key, value] of Object.entries(after)) {
+    if (!(key in before)) {
+      await admin.messaging().send({
+        topic: "smv",
+        notification: {
+          title: value.header,
+          body: value.content
+        },
+        android: {
+          notification: {
+            channelId: "high_importance_channel"
+          }
+        }
+      });
+    }
+    break;
+  }
 }
