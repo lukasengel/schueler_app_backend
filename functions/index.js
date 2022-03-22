@@ -51,6 +51,9 @@ async function sendNotifications(change, broadcast) {
           title: broadcast ? "Rundnachricht: " : "Schulleben: " + value.header,
           body: value.content
         },
+        data: {
+          "page": "smv"
+        },
         android: {
           notification: {
             channelId: "high_importance_channel"
@@ -100,6 +103,9 @@ async function sendDailyNotifications(change) {
         notification: {
           title: `Neue Vertretungen: ${group}`,
           body: body,
+        },
+        data: {
+          "page": "substitutions"
         },
         android: {
           notification: {
