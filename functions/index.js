@@ -43,25 +43,27 @@ async function sendNotifications(change, broadcast) {
   const before = change.before.val();
   const after = change.after.val();
 
-  for (const [key, value] of Object.entries(after)) {
-    if (!(key in before)) {
-      await admin.messaging().send({
-        topic: broadcast ? "broadcast" : "smv",
-        notification: {
-          title: broadcast ? "Rundnachricht: " : "Schulleben: " + value.header,
-          body: value.content
-        },
-        data: {
-          "page": broadcast ? "" : "smv",
-        },
-        android: {
+  if (after) {
+    for (const [key, value] of Object.entries(after)) {
+      if (!before || !(key in before)) {
+        await admin.messaging().send({
+          topic: broadcast ? "broadcast" : "smv",
           notification: {
-            channelId: "high_importance_channel"
+            title: (broadcast ? "Rundnachricht: " : "Schulleben: ") + value.header,
+            body: value.content
+          },
+          data: {
+            "page": broadcast ? "" : "smv",
+          },
+          android: {
+            notification: {
+              channelId: "high_importance_channel"
+            }
           }
-        }
-      });
+        });
+      }
+      continue;
     }
-    break;
   }
 }
 
