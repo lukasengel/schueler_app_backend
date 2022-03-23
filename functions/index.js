@@ -52,7 +52,7 @@ async function sendNotifications(change, broadcast) {
           body: value.content
         },
         data: {
-          "page": "smv"
+          "page": broadcast ? undefined : "smv",
         },
         android: {
           notification: {
