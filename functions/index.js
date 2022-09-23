@@ -56,10 +56,20 @@ async function sendNotifications(change, broadcast) {
             "page": broadcast ? "" : "smv",
           },
           android: {
-            notification: {
-              channelId: "high_importance_channel"
+            ttl: 172_800_000 //127_800s = 48h
+          },
+          apns: {
+            headers: {
+              "apns-priority": "5",
+              "apns-expiration": (Math.floor(new Date().getTime() / 1000) + 43_200).toString() //43_200s = 12h
+            },
+            payload: {
+              aps: {
+                "badge": 1,
+                "sound": 'default'
+              }
             }
-          }
+          },
         });
       }
       continue;
@@ -109,11 +119,21 @@ async function sendDailyNotifications(change) {
         data: {
           "page": "substitutions"
         },
-        android: {
-          notification: {
-            channelId: "high_importance_channel"
-          }
-        }
+          android: {
+            ttl: 172_800_000 //127_800s = 48h
+          },
+          apns: {
+            headers: {
+              "apns-priority": "5",
+              "apns-expiration": (Math.floor(new Date().getTime() / 1000) + 43_200).toString() //43_200s = 12h
+            },
+            payload: {
+              aps: {
+                "badge": 1,
+                "sound": 'default'
+              }
+            }
+          },
       });
     }
   });
