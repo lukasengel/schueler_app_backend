@@ -4,10 +4,10 @@
 
 Server-Backend für die Schüler-App des Gnadenthal-Gymnasiums
 
-Läuft auf der Google Cloud Platform (Firebase Functions) unter Node.js
+Läuft auf der Google Cloud Platform (Firebase Functions) unter einer Node.js Laufzeitumgebung.
 
 ## Funktionen:
-- [x] Ruft die Website des aktuellen Vertretungsplans ab, parst die Daten und schreibt diese auf die Datenbank (Google Firebase Realtime Database)
+- [x] Ruft die Website des aktuellen Vertretungsplans ab, parst die Daten und schreibt diese in die Datenbank (Google Firebase Realtime Database)
 - [x] Verschickt Push-Benachrichtigungen über Vertretungen, Rundnachrichten und Nachrichten aus dem Schulleben
 
 ## Lizenz
