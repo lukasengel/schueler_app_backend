@@ -14,23 +14,27 @@ export class HtmlParser {
         const $ = this.query;
         let elements = $(".daily_table");
         let list = [];
+
         for (let i = 0; i < elements.length; i++) {
             let rows = [];
             const rowElements = $(elements[i]).find("tr");
             let group = "";
             let groups = [];
 
-            for (let i = 3; i < rowElements.length; i++) {
-                const fields = $(rowElements[i]).find("td");
+            for (let j = 3; j < rowElements.length; j++) {
+                const fields = $(rowElements[j]).find("td");
 
                 if (fields.length == 6) {
-                    const course = $(fields[0]).text();
+                    let course = $(fields[0]).text();
+
                     if (course != String.fromCharCode(160)) {
-                        if (groups.includes(course)) {
-                            break;
-                        }
                         group = course;
                     }
+
+                    if (groups.includes(course)) {
+                        course = String.fromCharCode(160);
+                    }
+
                     if (!groups.includes(group)) {
                         groups.push(group);
                     }
@@ -43,7 +47,6 @@ export class HtmlParser {
                         info: $(fields[5]).text().trim(),
                         group: group,
                     }));
-
                 }
             }
             list.push(new SubstitutionTable({
