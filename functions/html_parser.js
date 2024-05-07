@@ -5,6 +5,11 @@ import { parseDate } from "./helpers.js";
 import { NewsItem } from "./models/news_item.js";
 import { SubstitutionTable, SubstitutionTableRow } from "./models/substitution_table.js"
 
+/**
+ * Class to parse the HTML substituion plan.
+ * 
+ * Provides methods to parse the substitutions, news, ticker and latest update.
+ */
 export class HtmlParser {
     constructor(html) {
         this.query = cheerio.load(html, null, false);

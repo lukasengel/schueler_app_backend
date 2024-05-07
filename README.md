@@ -1,4 +1,4 @@
-<img alt="Logo" src=".github/logo_backend.png" height="200">
+<img alt="Logo" src=".github/icon_backend_512.png" height="200">
 
 # Schüler-App Backend
 
@@ -9,6 +9,7 @@ Läuft auf der Google Cloud Platform (Firebase Functions) unter einer Node.js La
 ## Funktionen:
 - [x] Ruft die Website des aktuellen Vertretungsplans ab, parst die Daten und schreibt diese in die Datenbank (Google Firebase Realtime Database)
 - [x] Verschickt Push-Benachrichtigungen über Vertretungen, Rundnachrichten und Nachrichten aus dem Schulleben
+- [x] Deaktivierung der verschiedenen Cloud-Funktionen an Hand von Flags in der Datenbank
 
 ## Lizenz
 Der Quellcode steht unter der MIT-Lizenz öffentlich zur Verfügung. Weitere Informationen unter license.txt.

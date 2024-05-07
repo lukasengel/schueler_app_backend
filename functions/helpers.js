@@ -1,3 +1,9 @@
+/**
+ * Parse a string with format "dd.MM.yyyy" or "dd.MM.yyyy HH:mm:ss" to a Date object.
+ * 
+ * @param {string} text Text to be parsed
+ * @returns {Date | undefined} Date object or undefined if the text does not contain a valid date
+ */
 export function parseDate(text) {
     const regexDate = RegExp("\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d");
     const regexTime = RegExp("\\d\\d\\:\\d\\d\\:\\d\\d");
@@ -15,6 +21,13 @@ export function parseDate(text) {
     }
 }
 
+/**
+ * Check if the given object is contained in the list.
+ * 
+ * @param {object} obj Object to be checked
+ * @param {Array<object>} list List of objects
+ * @returns {boolean} True if the object is contained in the list, false otherwise
+ */
 export function containsObject(obj, list) {
     for (let i = 0; i < list.length; i++) {
         if (JSON.stringify(list[i]) === JSON.stringify(obj)) {
