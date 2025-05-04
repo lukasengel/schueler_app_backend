@@ -1,20 +1,20 @@
 import axios from "axios";
 import {credentials} from "./credentials";
-import {parseDate} from "./helpers";
+import {parseIsoDate} from "./helpers";
 import {parseHtml} from "./parsers";
 
 /**
  * Test function for `parseDate`.
  */
 function testParseDate() {
-    const result1 = parseDate("31.01.2023 12:00:00");
-    console.log(result1 != undefined ? result1.toISOString() : "Invalid date.");
+    const result1 = parseIsoDate("31.01.2023 12:00:00");
+    console.log(result1 != undefined ? result1: "Invalid date.");
 
-    const result2 = parseDate("81.01.2023 12:00:00");
-    console.log(result2 != undefined ? result2.toISOString() : "Invalid date.");
+    const result2 = parseIsoDate("81.01.2023 12:00:00");
+    console.log(result2 != undefined ? result2 : "Invalid date.");
 
-    const result3 = parseDate("31.01.2023");
-    console.log(result3 != undefined ? result3.toISOString() : "Invalid date.");
+    const result3 = parseIsoDate("31.01.2023");
+    console.log(result3 != undefined ? result3 : "Invalid date.");
 }
 
 /**

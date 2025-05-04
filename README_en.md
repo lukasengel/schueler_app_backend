@@ -3,7 +3,7 @@
 <img alt="Logo" src=".github/icon_backend_512.png" height="200">
 
 # Schüler-App Backend 🎓
-Server backend for the student app of Gnadenthal-Gymnasium.
+Server backend for the Gnadenthal-Gymnasium student app.
 
 Runs on the Google Cloud Platform (Firebase Functions) in a Node.js runtime environment.
 

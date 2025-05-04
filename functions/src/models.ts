@@ -20,14 +20,14 @@ export type ExternalDataSnapshot = Readonly<{
     tickerItems: string[];
 
     /**
-     * The date when the data on the website was last updated.
+     * The date when the data on the website was last updated, as ISO 8601 string.
      */
-    latestUpdate: Date;
+    latestUpdate: string;
 
     /**
-     * The date when this snapshot was fetched.
+     * The date when this snapshot was fetched, as ISO 8601 string.
      */
-    latestFetch: Date;
+    latestFetch: string;
 }>;
 
 /**
@@ -35,9 +35,9 @@ export type ExternalDataSnapshot = Readonly<{
  */
 export type SubstitutionTable = Readonly<{
     /**
-     * The date of the substitution table.
+     * The date of the substitution table, as ISO 8601 string.
      */
-    date: Date;
+    date: string;
 
     /**
      * The individual substitution rows, i.e. the lessons that are being substituted or changed on that day.

@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio";
 import {ExternalDataSnapshot, NewsItem, SubstitutionTable, SubstitutionTableRow} from "./models";
-import {parseDate} from "./helpers";
+import {parseIsoDate} from "./helpers";
 
 /**
  * Parse the HTML of the substitution plan website to an ExternalDataSnapshot object.
@@ -16,7 +16,7 @@ export function parseHtml(html: string): ExternalDataSnapshot {
         newsItems: parseNewsItems(queryingApi),
         tickerItems: parseTickerItems(queryingApi),
         latestUpdate: parseLatestUpdate(queryingApi),
-        latestFetch: new Date(),
+        latestFetch: new Date().toISOString(),
     };
 }
 
@@ -32,7 +32,7 @@ function parseSubstitutionTables($: cheerio.CheerioAPI): SubstitutionTable[] {
 
     // Iterate through each table element and extract date and rows.
     for (const tableElement of tableElements) {
-        const rows : SubstitutionTableRow[] = [];
+        const rows: SubstitutionTableRow[] = [];
         const rowElements = $(tableElement).find("tr");
         const dateElement = $(tableElement).find(".daily_date_hdl");
 
@@ -75,7 +75,7 @@ function parseSubstitutionTables($: cheerio.CheerioAPI): SubstitutionTable[] {
         }
 
         tables.push({
-            date: parseDate(dateElement.text()) ?? new Date(1970),
+            date: parseIsoDate(dateElement.text()) ?? new Date(1970).toISOString(),
             rows: rows,
         });
     }
@@ -139,9 +139,9 @@ function parseTickerItems($: cheerio.CheerioAPI): string[] {
  * Parse the latest update date from the HTML content.
  *
  * @param {cheerio.CheerioAPI} $ - The Cheerio API instance.
- * @return {Date} The parsed latest update date.
+ * @return {string} The parsed latest update date, as ISO 8601 string.
  */
-function parseLatestUpdate($: cheerio.CheerioAPI): Date {
+function parseLatestUpdate($: cheerio.CheerioAPI): string {
     const latestUpdate = $(".copyright p").text();
-    return parseDate(latestUpdate) ?? new Date(1970);
+    return parseIsoDate(latestUpdate) ?? new Date(1970).toISOString();
 }

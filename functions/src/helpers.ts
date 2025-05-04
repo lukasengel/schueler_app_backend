@@ -1,12 +1,12 @@
 import moment from "moment-timezone";
 
 /**
- * Parse a date in format "dd.MM.yyyy" or "dd.MM.yyyy HH:mm:ss" from a string to a Date object.
+ * Parse a date in format "dd.MM.yyyy" or "dd.MM.yyyy HH:mm:ss" from a string to a string in ISO 8601 format.
  *
- * @param {string} text Text to be parsed.
- * @return {Date | undefined} Date object or undefined if the text does not contain a valid date.
+ * @param {string} text Text containing a date.
+ * @return {string | undefined} String in ISO 8601 format, or undefined if the text does not contain a valid date.
  */
-export function parseDate(text: string): Date | undefined {
+export function parseIsoDate(text: string): string | undefined {
     const dateRegex = RegExp("\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d");
     const timeRegex = RegExp("\\d\\d\\:\\d\\d\\:\\d\\d");
 
@@ -25,7 +25,7 @@ export function parseDate(text: string): Date | undefined {
 
         // If the date is valid, return it.
         if (parsedMoment.isValid()) {
-            return parsedMoment.toDate();
+            return parsedMoment.toISOString();
         }
     }
 
