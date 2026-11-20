@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio";
-import {ExternalDataSnapshot, NewsItem, SubstitutionTable, SubstitutionTableRow} from "./models";
-import {parseIsoDate} from "./helpers";
+import { ExternalDataSnapshot, NewsItem, SubstitutionTable, SubstitutionTableRow } from "./models";
+import { parseIsoDate } from "./helpers";
 
 /**
  * Parse the HTML of the substitution plan website to an ExternalDataSnapshot object.
@@ -97,7 +97,21 @@ function parseNewsItems($: cheerio.CheerioAPI): NewsItem[] {
         // Extract the headline, subheadline, and content.
         const headline = $(element).find(".news_headline_1").text().trim();
         const subheadline = $(element).find(".news_headline_2").text().trim();
-        const content = $(element).find(".news_text").text().trim();
+
+        // The content usually consists of multiple paragraphs. Collect their texts, skipping empty ones.
+        const textElement = $(element).find(".news_text");
+        const paragraphs: string[] = [];
+
+        for (const paragraphElement of textElement.find("p")) {
+            const paragraph = $(paragraphElement).text().trim();
+
+            if (paragraph) {
+                paragraphs.push(paragraph);
+            }
+        }
+
+        // Separate the paragraphs by an empty line. If there are no paragraphs, use the plain text instead.
+        const content = paragraphs.length > 0 ? paragraphs.join("\n\n") : textElement.text().trim();
 
         // If at least one of the fields is not empty, create an item.
         if (headline || subheadline || content) {
@@ -142,6 +156,6 @@ function parseTickerItems($: cheerio.CheerioAPI): string[] {
  * @return {string} The parsed latest update date, as ISO 8601 string.
  */
 function parseLatestUpdate($: cheerio.CheerioAPI): string {
-    const latestUpdate = $(".copyright p").text();
+    const latestUpdate = $(".copyright").text();
     return parseIsoDate(latestUpdate) ?? new Date(1970).toISOString();
 }

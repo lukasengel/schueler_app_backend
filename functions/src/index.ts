@@ -1,10 +1,11 @@
 import axios from "axios";
-import {onSchedule} from "firebase-functions/v2/scheduler";
-import admin from "firebase-admin";
-import {parseHtml} from "./parsers";
+import { onSchedule } from "firebase-functions/v2/scheduler";
+import { initializeApp } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
+import { parseHtml } from "./parsers";
 
 // Initialize Firebase.
-admin.initializeApp();
+initializeApp();
 
 // Register a scheduled function, to execute the `_fetchHtml` function every 15 minutes.
 export const fetchHtml = onSchedule("*/15 * * * *", _fetchHtml);
@@ -14,7 +15,7 @@ export const fetchHtml = onSchedule("*/15 * * * *", _fetchHtml);
  */
 async function _fetchHtml() {
     // Retrieve the website credentials from the database.
-    const credentials = await admin.firestore().collection("config").doc("dataSource").get();
+    const credentials = await getFirestore().collection("config").doc("dataSource").get();
 
     // Fetch HTML.
     const response = await axios.get(credentials.get("url"), {
@@ -28,5 +29,5 @@ async function _fetchHtml() {
     const snapshot = parseHtml(response.data);
 
     // Update information in the database.
-    await admin.firestore().collection("external").doc("latest").set(snapshot);
+    await getFirestore().collection("external").doc("latest").set(snapshot);
 }
